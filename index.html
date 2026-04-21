@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Kỉ yếu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    overflow: hidden;
+    text-align: center;
+    background: url('https://i.pinimg.com/736x/4e/9e/91/4e9e91f7fdfd8c3d98dcb06b5a92a6b3.jpg') center/cover no-repeat;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 235, 245, 0.82);
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active { display: flex; }
+
+/* KHUNG ẢNH CHÈN CÁ NHÂN (MÀN ĐẦU) */
+.photo-slot {
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
+    border: 3px dashed #c2185b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #c2185b;
+    font-size: 14px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.6);
+}
+
+.photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* text */
+.text {
+    font-size: 22px;
+    color: #7a3b5c;
+}
+
+.hint {
+    font-size: 13px;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* icon */
+.icon {
+    font-size: 80px;
+    animation: float 2s infinite;
+}
+
+@keyframes float {
+    50% { transform: translateY(-10px); }
+}
+
+/* typing */
+.typing {
+    font-size: 26px;
+    color: #5a2a3b;
+    border-right: 2px solid black;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* THIỆP */
+.card {
+    width: 650px;
+    padding: 45px;
+    border-radius: 25px;
+    background: white;
+    border: 4px solid transparent;
+    background-image: linear-gradient(white, white),
+                      linear-gradient(135deg, #ff9ecb, #f06292);
+    background-clip: padding-box, border-box;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* KHUNG ẢNH TRONG THIỆP */
+.card-photo {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 15px;
+    border-radius: 12px;
+    border: 3px dashed #f06292;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #c2185b;
+    font-size: 13px;
+    background: #fff5f8;
+}
+
+.card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 44px;
+    color: #c2185b;
+}
+
+.info {
+    font-size: 18px;
+    margin: 6px;
+}
+
+/* thank */
+.thank {
+    font-family: 'Dancing Script', cursive;
+    font-size: 44px;
+    color: #b03060;
+}
+
+/* effect */
+.float {
+    position: fixed;
+    bottom: -50px;
+    animation: up linear forwards;
+}
+
+@keyframes up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 1 -->
+<div class="screen active" id="s1" onclick="next(1)">
+    <div class="photo-slot">
+        <!-- 👉 CHÈN ẢNH CÁ NHÂN Ở ĐÂY -->
+        <!-- <img src="bảo quyên 1.jpg"> -->
+        <img src="bảo quyên 1.jpg">
+    </div>
+
+    <div class="text">Trân trọng kính mời đến gửi những người tui yêu</div>
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- 2 -->
+<div class="screen" id="s2" onclick="next(2)">
+    <div class="icon">✉️</div>
+    <div class="text">Trân trọng kính mời bạn đến dự kỉ yếu</div>
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- 3 -->
+<div class="screen" id="s3" onclick="startTyping1()">
+    <div class="text">Kỉ yếu</div>
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- typing -->
+<div class="screen" id="s4" onclick="goCard()">
+    <div id="t1" class="typing"></div>
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- thiệp -->
+<div class="screen" id="s5" onclick="startTyping2()">
+    <div class="card">
+
+        <div class="card-photo">
+            <!-- 👉 CHÈN ẢNH CÁ NHÂN TRONG THIỆP -->
+            <!-- <img src="YOUR_IMAGE.jpg"> -->
+            <img src="bảo quyên 2.jpg">
+        </div>
+
+        <h1>Thư Mời</h1>
+
+        <div class="info">Trân trọng kính mời bạn đến dự kỉ yếu</div>
+        <div class="info">📍 Sân trường khu A - THPT Phan Châu Trinh</div>
+        <div class="info">⏰ 10:00 - 12:00</div>
+        <div class="info">📅 27/04/2026</div>
+    </div>
+
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- typing 2 -->
+<div class="screen" id="s6">
+    <div id="t2" class="typing"></div>
+    <div class="hint">Bấm để tiếp tục →</div>
+</div>
+
+<!-- thank -->
+<div class="screen" id="s7">
+    <div class="thank">Xin cảm ơn</div>
+</div>
+
+<script>
+function next(n){
+    document.getElementById('s'+n).classList.remove('active');
+    document.getElementById('s'+(n+1)).classList.add('active');
+}
+
+/* typing 1 */
+function startTyping1(){
+    next(3);
+
+    let text = "Gửi đến những người tui yêu quý";
+    let i = 0;
+    let el = document.getElementById("t1");
+
+    function type(){
+        if(i < text.length){
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 60);
+        }
+    }
+    type();
+}
+
+function goCard(){
+    next(4);
+}
+
+/* typing 2 */
+function startTyping2(){
+    next(5);
+
+    let text = "Bảo Quyên siu mong đợi bạn đến dự kỉ yếu của mình";
+    let i = 0;
+    let el = document.getElementById("t2");
+
+    function type(){
+        if(i < text.length){
+            el.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 50);
+        } else {
+            setTimeout(()=>{
+                next(6);
+                startEffect();
+            },800);
+        }
+    }
+    type();
+}
+
+/* effect */
+function startEffect(){
+    setInterval(()=>{
+        let el = document.createElement("div");
+        el.className = "float";
+        el.innerHTML = ["❤","💖","🎈","✨","💗"][Math.floor(Math.random()*5)];
+        el.style.left = Math.random()*100 + "vw";
+        el.style.fontSize = (16 + Math.random()*20) + "px";
+        el.style.animationDuration = (2 + Math.random()*2) + "s";
+
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(), 4000);
+    }, 120);
+}
+</script>
+
+</body>
+</html>
